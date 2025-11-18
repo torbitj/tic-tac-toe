@@ -8,3 +8,5 @@ const render = () => {
   <section><RowThree></RowThree></section>
   `;
 }
+
+render();
