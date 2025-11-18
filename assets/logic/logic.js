@@ -20,6 +20,15 @@ const createBoard = () => {
   }
 }
 
+const updateTurn = () => {
+  if (state.turn === `X`) {
+    state.turn = `O`;
+  }
+  else {
+    state.turn = `X`
+  }
+}
+
 const Board = () => {
   const $board = document.createElement(`section`);
   $board.innerHTML = `
@@ -44,7 +53,8 @@ const Board = () => {
       if (selectedBox.innerHTML !== ``) {
         alert(`Space already filled`)
       } else {
-        selectedBox.innerHTML = `X`;
+        selectedBox.innerHTML = state.turn;
+        updateTurn();
       }
     });
   })
