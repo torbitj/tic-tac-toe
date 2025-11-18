@@ -29,36 +29,56 @@ const updateTurn = () => {
   }
 }
 
-const Board = () => {
-  const $board = document.createElement(`section`);
-  $board.innerHTML = `
-  <figure></figure>
-  <figure></figure>
-  <figure></figure>`;
-  const allFigs = $board.querySelectorAll(`figure`);
-  const figArray = [...allFigs];
-  for (let i = 0; i < figArray.length; i++) {
-    const currRow = state.board[i];
-    const currFig = figArray[i]
-    for (let i = 0; i < ARRAY_LENGTH; i++) {
-      currFig.append(currRow[i]);
+const isBoardFull = () => {
+  const spacesNodes = document.querySelectorAll(`h2`);
+  const spacesArray = [...spacesNodes];
+  let boxFullCount = 0
+  for (let i = 0; i < spacesArray.length; i++) {
+    if (spacesArray[i].innerHTML !== ``) {
+      boxFullCount++
     }
   }
+  if (boxFullCount === 9) {
+    alert(`Insert Test Win Function`)
+  } 
+}
 
-// Create an event listener
-  const allBoxes = $board.querySelectorAll(`h2`);
-  allBoxes.forEach((fig) => {
-    fig.addEventListener("click", (event) => {
-      const selectedBox = event.target;
-      if (selectedBox.innerHTML !== ``) {
-        alert(`Space already filled`)
-      } else {
-        selectedBox.innerHTML = state.turn;
-        updateTurn();
+const Board = () => {
+  if (!state.keepBoard) {
+
+  } else {
+    const $board = document.createElement(`section`);
+    $board.innerHTML = `
+    <figure></figure>
+    <figure></figure>
+    <figure></figure>
+    `;
+    const allFigs = $board.querySelectorAll(`figure`);
+    const figArray = [...allFigs];
+    for (let i = 0; i < figArray.length; i++) {
+      const currRow = state.board[i];
+      const currFig = figArray[i]
+      for (let i = 0; i < ARRAY_LENGTH; i++) {
+        currFig.append(currRow[i]);
       }
-    });
-  })
-  return $board;
+    }
+
+    // Create an event listener
+    const allBoxes = $board.querySelectorAll(`h2`);
+    allBoxes.forEach((fig) => {
+      fig.addEventListener("click", (event) => {
+        const selectedBox = event.target;
+        if (selectedBox.innerHTML !== ``) {
+          alert(`Space already filled`)
+        } else {
+          selectedBox.innerHTML = state.turn;
+          updateTurn();
+        }
+        isBoardFull();
+      });
+    })
+    return $board;
+  }
 }
 
 const render = () => {
