@@ -15,11 +15,60 @@ main {
   display: grid;
   justify-content: center;
   align-items: center;
+  row-gap: 2em;
+}
+
+figure {
+  display: flex;
+}
+
+h1 {
+  text-align: center;
 }
 
 h2 {
   height: 5em;
   width: 5em;
   border: solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
 }
 
+#box1,
+#box2,
+#box3 {
+  border-top: none;
+}
+
+#box1 {
+
+  border-left: none;
+}
+
+#box3 {
+ border-right: none;
+}
+
+#box4 {
+  border-left: none;
+}
+
+#box6 {
+  border-right: none;
+}
+
+#box7,
+#box8,
+#box9 {
+  border-bottom: none;
+}
+
+#box7 {
+  border-left: none;
+}
+
+#box9 {
+  border-right: none;
+}
