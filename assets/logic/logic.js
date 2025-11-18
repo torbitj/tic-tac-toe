@@ -34,6 +34,12 @@ const Board = () => {
       currFig.append(currRow[i]);
     }
   }
+  // Create an event listener
+  $board.addEventListener("click", (event) => {
+    const selectedBox = event.target.id;
+    console.log($board.querySelector(selectedBox))
+  });
+  return $board;
 }
 
 const render = () => {
@@ -43,8 +49,9 @@ const render = () => {
   <Score></Score>
   <Board></Board>
   `;
+
+  document.querySelector(`Board`).replaceWith(Board());
 }
 
 createBoard();
 render();
-Board();
