@@ -1,18 +1,19 @@
 const state = {
-  board: []
+  board: [],
+  keepBoard: true
 }
 
 const ARRAY_LENGTH = 3;
 
-const addRows = () => {
-  let figCount = 1;
+const createBoard = () => {
+  let headingCount = 1;
   for (let i = 0; i < ARRAY_LENGTH; i++) {
     const rowArray = [];
     for (let i = 0; i < ARRAY_LENGTH; i++) {
-      const $fig = document.createElement(`h2`);
-      $fig.id = `fig${figCount}`;
-      rowArray.push($fig);
-      figCount++;
+      const $h2 = document.createElement(`h2`);
+      $h2.id = `box${headingCount}`;
+      rowArray.push($h2);
+      headingCount++;
     }
     state.board.push(rowArray);
   }
@@ -21,9 +22,18 @@ const addRows = () => {
 const Board = () => {
   const $board = document.createElement(`section`);
   $board.innerHTML = `
-  <RowOne></RowOne>
-  <RowTwo></RowTwo>
-  <RowThree></RowThree>`;
+  <figure></figure>
+  <figure></figure>
+  <figure></figure>`;
+  const allFigs = $board.querySelectorAll(`figure`);
+  const figArray = [...allFigs];
+  for (let i = 0; i < figArray.length; i++) {
+    const currRow = state.board[i];
+    const currFig = figArray[i]
+    for (let i = 0; i < ARRAY_LENGTH; i++) {
+      currFig.append(currRow[i]);
+    }
+  }
 }
 
 const render = () => {
@@ -35,5 +45,6 @@ const render = () => {
   `;
 }
 
+createBoard();
 render();
-addRows();
+Board();
