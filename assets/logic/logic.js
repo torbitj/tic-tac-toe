@@ -4,6 +4,20 @@ const state = {
 
 const ARRAY_LENGTH = 3;
 
+const addRows = () => {
+  let figCount = 1;
+  for (let i = 0; i < ARRAY_LENGTH; i++) {
+    const rowArray = [];
+    for (let i = 0; i < ARRAY_LENGTH; i++) {
+      const $fig = document.createElement(`h2`);
+      $fig.id = `fig${figCount}`;
+      rowArray.push($fig);
+      figCount++;
+    }
+    state.board.push(rowArray);
+  }
+}
+
 const Board = () => {
   const $board = document.createElement(`section`);
   $board.innerHTML = `
@@ -22,3 +36,4 @@ const render = () => {
 }
 
 render();
+addRows();
