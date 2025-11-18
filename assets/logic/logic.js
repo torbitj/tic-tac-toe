@@ -1,3 +1,9 @@
+const state = {
+  board: []
+}
+
+const ARRAY_LENGTH = 3;
+
 const render = () => {
   const $app = document.querySelector(`#app`);
   $app.innerHTML = `
