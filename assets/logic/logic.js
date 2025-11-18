@@ -1,5 +1,6 @@
 const state = {
   board: [],
+  turn: 'X',
   keepBoard: true
 }
 
@@ -34,11 +35,19 @@ const Board = () => {
       currFig.append(currRow[i]);
     }
   }
-  // Create an event listener
-  $board.addEventListener("click", (event) => {
-    const selectedBox = event.target.id;
-    console.log($board.querySelector(selectedBox))
-  });
+
+// Create an event listener
+  const allBoxes = $board.querySelectorAll(`h2`);
+  allBoxes.forEach((fig) => {
+    fig.addEventListener("click", (event) => {
+      const selectedBox = event.target;
+      if (selectedBox.innerHTML !== ``) {
+        alert(`Space already filled`)
+      } else {
+        selectedBox.innerHTML = `X`;
+      }
+    });
+  })
   return $board;
 }
 
