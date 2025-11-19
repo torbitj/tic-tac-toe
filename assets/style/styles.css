@@ -1,8 +1,9 @@
+/* Root */
 * {
   margin: 0;
   padding: 0;
 }
-
+/* Elements */
 body {
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
@@ -35,7 +36,7 @@ h2 {
   align-items: center;
   font-size: 2em;
 }
-
+/* Ids */
 #box1,
 #box2,
 #box3 {
@@ -72,3 +73,5 @@ h2 {
 #box9 {
   border-right: none;
 }
+
+/* Media Queries */
