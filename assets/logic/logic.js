@@ -6,26 +6,19 @@ const state = {
 
 const ARRAY_LENGTH = 3;
 
-const WIN_COMBOS = {
-  boxOne: {
-    winOne: [`box1`, `box2`, `box3`],
-    winTwo: [`box1`, `box5`, `box9`],
-    WinThree: [`box1`, `box4`, `box7`]
-  },
-  boxTwo: {
-    win: [`box2`, `box5`, `box8`]
-  },
-  boxThree: {
-    winOne: [`box3`, `box6`, `box9`],
-    winTwo: [`box3`, `box5`, `box7`]
-  },
-  boxFour: {
-    win: [`box4`, `box5`, `box6`]
-  },
-  boxSeven: {
-    win: [`box7`, `box8`, `box9`]
-  }
-}
+const WIN_COMBOS = [
+  // Rows
+  [`box1`, `box2`, `box3`],
+  [`box4`, `box5`, `box6`],
+  [`box7`, `box8`, `box9`],
+  // Columns
+  [`box1`, `box4`, `box7`],
+  [`box2`, `box5`, `box8`],
+  [`box3`, `box6`, `box9`],
+  // Diagonals
+  [`box1`, `box5`, `box9`],
+  [`box3`, `box5`, `box7`]
+]
 
 const createBoard = () => {
   state.board = [];
@@ -54,10 +47,9 @@ const updateTurn = () => {
 }
 
 const testWinCombos = (array) => {
-  const { boxOne, boxTwo, boxThree, boxFour, boxSeven } = WIN_COMBOS;
   const idArray = array.map((h) => h.id);
-
-  console.log(idArray);
+  
+  
 }
 
 const isBoardFull = () => {
@@ -79,7 +71,6 @@ const currentWin = () => {
   const boxesArray = [...boxesNodes];
   let oWin = false;
   let xWin = false;
-  const winBoxes = [`box1`, `box2`, `box3`, `box4`, `box7`];
   const xArray = boxesArray.filter((h) => h.innerText === `X`);
   const oArray = boxesArray.filter((h) => h.innerText === `O`);
   if (xArray.length > 2) {
@@ -89,15 +80,22 @@ const currentWin = () => {
     }
   }
   if (xWin) {
-    alert(`X wins!`);
-    createBoard();
+    setTimeout(() => {
+      alert(`X wins!`);
+      createBoard();
+    }, 250);
   } else if (oWin) {
-    alert(`O wins!`);
-    createBoard();
+    setTimeout(() => {
+      alert(`O wins!`);
+      createBoard();
+    }, 250); 
   } else if (!xWin && !oWin && state.fullBoard) {
-    alert(`Cat's Game!`)
-    createBoard();
-    render();
+    setTimeout(() => {
+      alert(`Cat's Game!`)
+      createBoard();
+      render();
+    } , 250);
+    
   }
 }
 
