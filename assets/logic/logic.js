@@ -1,7 +1,8 @@
 const state = {
   board: [],
   turn: 'X',
-  keepBoard: true
+  keepBoard: true,
+  fullBoard: false
 }
 
 const ARRAY_LENGTH = 3;
@@ -39,13 +40,27 @@ const isBoardFull = () => {
     }
   }
   if (boxFullCount === 9) {
-    alert(`Insert Test Win Function`)
+    state.fullBoard = true;
   } 
+}
+
+const testWin = () => {
+  const boxesNodes = document.querySelectorAll(`h2`);
+  const boxesArray = [...boxesNodes];
+  const winBoxCombos = [
+    [`box1`, `box2`, `box3`], [`box1`, `box5`, `box9`], [`box1`, `box4`, `box7`], [`box2`, `box5`, `box8`], [`box3`, `box6`, `box9`], [`box3`, `box5`, `box7`], [`box4`, `box5`, `box6`], [`box7`, `box8`, `box9`]
+  ];
+  for (let i = 0; i < 8; i++) {
+    const currCombo = winBoxCombos[i];
+    winBoxCombos.push(currCombo.slice().reverse());
+  }
+  const xArray = boxesArray.filter((h) => h.innerText === `X`);
+  console.log(winBoxCombos)
 }
 
 const Board = () => {
   if (!state.keepBoard) {
-
+    // Clear board function to empty board state, update keepBoard and re-render new board
   } else {
     const $board = document.createElement(`section`);
     $board.innerHTML = `
@@ -75,6 +90,7 @@ const Board = () => {
           updateTurn();
         }
         isBoardFull();
+        testWin();
       });
     })
     return $board;
