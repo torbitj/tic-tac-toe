@@ -1,11 +1,12 @@
+// State variables
 const state = {
   board: [],
   turn: 'X',
   fullBoard: false,
 }
-
+// Board and winning combo array length
 const ARRAY_LENGTH = 3;
-
+// Winning combinations of boxes
 const WIN_COMBOS = [
   // Rows
   [`box1`, `box2`, `box3`],
@@ -19,7 +20,7 @@ const WIN_COMBOS = [
   [`box1`, `box5`, `box9`],
   [`box3`, `box5`, `box7`]
 ]
-
+// Creates h2 elements to fill the board state variable
 const createBoard = () => {
   state.board = [];
   state.turn = `X`;
@@ -36,7 +37,7 @@ const createBoard = () => {
     state.board.push(rowArray);
   }
 }
-
+// Update whose turn it is
 const updateTurn = () => {
   if (state.turn === `X`) {
     state.turn = `O`;
@@ -45,30 +46,32 @@ const updateTurn = () => {
     state.turn = `X`
   }
 }
-
+// Test X and O positions against winning combinations
 const testWinCombos = (array) => {
   const idArray = array.map((h) => h.id);
-
+  // Pull down and inspect each winning combination until a match is found
   for (let i = 0; i < WIN_COMBOS.length; i++) {
     const currCombo = WIN_COMBOS[i];
     let matchCount = 0;
-
+    // Loop through the winning combo array
     for (let i = 0; i < currCombo.length; i++) {
       const currBoxId = currCombo[i];
-
+      // Check X and O arrays against current winning combo array
       for (let i = 0; i < idArray.length; i++) {
         if (idArray[i] === currBoxId) {
           matchCount++
         }
       }
     }
-    if (matchCount === 3) {
+    // If there is a match, return true
+    if (matchCount === ARRAY_LENGTH) {
       return true;
     }
   }
+  // Return false if no match is found
   return false;
 }
-
+// Check if the board is full and update state variable
 const isBoardFull = () => {
   const spacesNodes = document.querySelectorAll(`h2`);
   const spacesArray = [...spacesNodes];
@@ -82,20 +85,24 @@ const isBoardFull = () => {
     state.fullBoard = true;
   } 
 }
-
+// Create X and O arrays for arguments for testing against winning combo function
 const currentWin = () => {
   const boxesNodes = document.querySelectorAll(`h2`);
   const boxesArray = [...boxesNodes];
+  // If there is a win boolean initialization
   let oWin = false;
   let xWin = false;
+  // X and O arrays
   const xArray = boxesArray.filter((h) => h.innerText === `X`);
   const oArray = boxesArray.filter((h) => h.innerText === `O`);
+  // Test if X or O has winning combination
   if (xArray.length > 2) {
     xWin = testWinCombos(xArray);
     if (!xWin) {
       oWin = testWinCombos(oArray);
     }
   }
+  // Display if X or O wins, or if it is a Cat's Game (tie) and create new board
   if (xWin) {
     setTimeout(() => {
       alert(`X wins!`);
@@ -116,7 +123,7 @@ const currentWin = () => {
     } , 250);
   }
 }
-
+// Create the board componenet function
 const Board = () => {
   const $board = document.createElement(`section`);
   $board.innerHTML = `
@@ -139,6 +146,7 @@ const Board = () => {
   allBoxes.forEach((fig) => {
     fig.addEventListener("click", (event) => {
       const selectedBox = event.target;
+      // Check if space clicked already has a value
       if (selectedBox.innerHTML !== ``) {
         alert(`Space already filled`)
       } else {
@@ -151,7 +159,7 @@ const Board = () => {
   })
   return $board;
 }
-
+// Render the document updates
 const render = () => {
   const $app = document.querySelector(`#app`);
   $app.innerHTML = `
@@ -162,5 +170,6 @@ const render = () => {
   document.querySelector(`Board`).replaceWith(Board());
 }
 
+// Create board elements and render to document
 createBoard();
 render();
