@@ -7,6 +7,27 @@ const state = {
 
 const ARRAY_LENGTH = 3;
 
+const WIN_COMBOS = {
+  boxOne: {
+    winOne: [`box1`, `box2`, `box3`],
+    winTwo: [`box1`, `box5`, `box9`],
+    WinThree: [`box1`, `box4`, `box7`]
+  },
+  boxTwo: {
+    win: [`box2`, `box5`, `box8`]
+  },
+  boxThree: {
+    winOne: [`box3`, `box6`, `box9`],
+    winTwo: [`box3`, `box5`, `box7`]
+  },
+  boxFour: {
+    win: [`box4`, `box5`, `box6`]
+  },
+  boxSeven: {
+    win: [`box7`, `box8`, `box9`]
+  }
+}
+
 const createBoard = () => {
   let headingCount = 1;
   for (let i = 0; i < ARRAY_LENGTH; i++) {
@@ -47,9 +68,6 @@ const isBoardFull = () => {
 const testWin = () => {
   const boxesNodes = document.querySelectorAll(`h2`);
   const boxesArray = [...boxesNodes];
-  const winBoxCombos = [
-    [`box1`, `box2`, `box3`], [`box1`, `box5`, `box9`], [`box1`, `box4`, `box7`], [`box2`, `box5`, `box8`], [`box3`, `box6`, `box9`], [`box3`, `box5`, `box7`], [`box4`, `box5`, `box6`], [`box7`, `box8`, `box9`]
-  ];
   for (let i = 0; i < 8; i++) {
     const currCombo = winBoxCombos[i];
     winBoxCombos.push(currCombo.slice().reverse());
