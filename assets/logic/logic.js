@@ -53,7 +53,7 @@ const testWinCombos = (array) => {
   for (let i = 0; i < WIN_COMBOS.length; i++) {
     const currCombo = WIN_COMBOS[i];
     let matchCount = 0;
-    // Loop through the winning combo array
+    // Inspect winning combo array
     for (let i = 0; i < currCombo.length; i++) {
       const currBoxId = currCombo[i];
       // Check X and O arrays against current winning combo array
