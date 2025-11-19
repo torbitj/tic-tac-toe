@@ -75,3 +75,26 @@ h2 {
 }
 
 /* Media Queries */
+@media screen and (max-width: 400px) {
+  h2 {
+    height: 1.25em;
+    width: 1.25em;
+  }
+  section {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: 
+    ". row1 ."
+    ". row2 ."
+    ". row3 .";
+  }
+  #row1 {
+    grid-area: row1;
+  }
+  #row2 {
+    grid-area:row2;
+  }
+  #row3 {
+    grid-area:row3;
+  }
+}

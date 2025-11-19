@@ -127,9 +127,9 @@ const currentWin = () => {
 const Board = () => {
   const $board = document.createElement(`section`);
   $board.innerHTML = `
-  <figure></figure>
-  <figure></figure>
-  <figure></figure>
+  <figure id="row1"></figure>
+  <figure id="row2"></figure>
+  <figure id="row3"></figure>
   `;
   const allFigs = $board.querySelectorAll(`figure`);
   const figArray = [...allFigs];
