@@ -48,8 +48,25 @@ const updateTurn = () => {
 
 const testWinCombos = (array) => {
   const idArray = array.map((h) => h.id);
-  
-  
+
+  for (let i = 0; i < WIN_COMBOS.length; i++) {
+    const currCombo = WIN_COMBOS[i];
+    let matchCount = 0;
+
+    for (let i = 0; i < currCombo.length; i++) {
+      const currBoxId = currCombo[i];
+
+      for (let i = 0; i < idArray.length; i++) {
+        if (idArray[i] === currBoxId) {
+          matchCount++
+        }
+      }
+    }
+    if (matchCount === 3) {
+      return true;
+    }
+  }
+  return false;
 }
 
 const isBoardFull = () => {
@@ -83,11 +100,13 @@ const currentWin = () => {
     setTimeout(() => {
       alert(`X wins!`);
       createBoard();
+      render();
     }, 250);
   } else if (oWin) {
     setTimeout(() => {
       alert(`O wins!`);
       createBoard();
+      render();
     }, 250); 
   } else if (!xWin && !oWin && state.fullBoard) {
     setTimeout(() => {
@@ -95,7 +114,6 @@ const currentWin = () => {
       createBoard();
       render();
     } , 250);
-    
   }
 }
 
