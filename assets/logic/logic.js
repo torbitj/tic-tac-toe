@@ -1,8 +1,7 @@
 const state = {
   board: [],
   turn: 'X',
-  keepBoard: true,
-  fullBoard: false
+  fullBoard: false,
 }
 
 const ARRAY_LENGTH = 3;
@@ -29,6 +28,9 @@ const WIN_COMBOS = {
 }
 
 const createBoard = () => {
+  state.board = [];
+  state.turn = `X`;
+  state.fullBoard = false;
   let headingCount = 1;
   for (let i = 0; i < ARRAY_LENGTH; i++) {
     const rowArray = [];
@@ -51,6 +53,13 @@ const updateTurn = () => {
   }
 }
 
+const testWinCombos = (array) => {
+  const { boxOne, boxTwo, boxThree, boxFour, boxSeven } = WIN_COMBOS;
+  const idArray = array.map((h) => h.id);
+
+  console.log(idArray);
+}
+
 const isBoardFull = () => {
   const spacesNodes = document.querySelectorAll(`h2`);
   const spacesArray = [...spacesNodes];
@@ -65,58 +74,72 @@ const isBoardFull = () => {
   } 
 }
 
-const testWin = () => {
+const currentWin = () => {
   const boxesNodes = document.querySelectorAll(`h2`);
   const boxesArray = [...boxesNodes];
-  const winBoxes = [`box1`, `box2`, `box3`, `box4`, `box7`]
+  let oWin = false;
+  let xWin = false;
+  const winBoxes = [`box1`, `box2`, `box3`, `box4`, `box7`];
   const xArray = boxesArray.filter((h) => h.innerText === `X`);
   const oArray = boxesArray.filter((h) => h.innerText === `O`);
+  if (xArray.length > 2) {
+    xWin = testWinCombos(xArray);
+    if (!xWin) {
+      oWin = testWinCombos(oArray);
+    }
+  }
+  if (xWin) {
+    alert(`X wins!`);
+    createBoard();
+  } else if (oWin) {
+    alert(`O wins!`);
+    createBoard();
+  } else if (!xWin && !oWin && state.fullBoard) {
+    alert(`Cat's Game!`)
+    createBoard();
+    render();
+  }
 }
 
 const Board = () => {
-  if (!state.keepBoard) {
-    // Clear board function to empty board state, update keepBoard and re-render new board
-  } else {
-    const $board = document.createElement(`section`);
-    $board.innerHTML = `
-    <figure></figure>
-    <figure></figure>
-    <figure></figure>
-    `;
-    const allFigs = $board.querySelectorAll(`figure`);
-    const figArray = [...allFigs];
-    for (let i = 0; i < figArray.length; i++) {
-      const currRow = state.board[i];
-      const currFig = figArray[i]
-      for (let i = 0; i < ARRAY_LENGTH; i++) {
-        currFig.append(currRow[i]);
-      }
+  const $board = document.createElement(`section`);
+  $board.innerHTML = `
+  <figure></figure>
+  <figure></figure>
+  <figure></figure>
+  `;
+  const allFigs = $board.querySelectorAll(`figure`);
+  const figArray = [...allFigs];
+  for (let i = 0; i < figArray.length; i++) {
+    const currRow = state.board[i];
+    const currFig = figArray[i]
+    for (let i = 0; i < ARRAY_LENGTH; i++) {
+      currFig.append(currRow[i]);
     }
-
-    // Create an event listener
-    const allBoxes = $board.querySelectorAll(`h2`);
-    allBoxes.forEach((fig) => {
-      fig.addEventListener("click", (event) => {
-        const selectedBox = event.target;
-        if (selectedBox.innerHTML !== ``) {
-          alert(`Space already filled`)
-        } else {
-          selectedBox.innerHTML = state.turn;
-          updateTurn();
-        }
-        isBoardFull();
-        testWin();
-      });
-    })
-    return $board;
   }
+
+  // Create an event listener
+  const allBoxes = $board.querySelectorAll(`h2`);
+  allBoxes.forEach((fig) => {
+    fig.addEventListener("click", (event) => {
+      const selectedBox = event.target;
+      if (selectedBox.innerHTML !== ``) {
+        alert(`Space already filled`)
+      } else {
+        selectedBox.innerHTML = state.turn;
+        updateTurn();
+      }
+      isBoardFull();
+      currentWin();
+    });
+  })
+  return $board;
 }
 
 const render = () => {
   const $app = document.querySelector(`#app`);
   $app.innerHTML = `
   <h1>Tic Tac Toe Game</h1>
-  <Score></Score>
   <Board></Board>
   `;
 
