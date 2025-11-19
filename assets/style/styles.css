@@ -5,10 +5,12 @@
 }
 /* Elements */
 body {
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 6fr 1fr;
-  grid-template-areas: 
+  grid-template-areas:
   ". main .";
+  align-items: center;
 }
 
 main {
@@ -16,7 +18,16 @@ main {
   display: grid;
   justify-content: center;
   align-items: center;
-  row-gap: 2em;
+  grid-template-rows: 1fr 5fr 1fr;
+  row-gap: 3em;
+  grid-template-areas: 
+  "."
+  "section"
+  ".";
+}
+
+section {
+  grid-area: section;
 }
 
 figure {
@@ -75,3 +86,32 @@ h2 {
 }
 
 /* Media Queries */
+@media screen and (max-width: 480px) {
+  h2 {
+    height: 3em;
+    width: 3em;
+  }
+}
+@media screen and (max-width: 400px) {
+  h2 {
+    height: 2em;
+    width: 2em;
+  }
+  section {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: 
+    ". row1 ."
+    ". row2 ."
+    ". row3 .";
+  }
+  #row1 {
+    grid-area: row1;
+  }
+  #row2 {
+    grid-area:row2;
+  }
+  #row3 {
+    grid-area:row3;
+  }
+}
