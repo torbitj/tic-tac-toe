@@ -68,12 +68,9 @@ const isBoardFull = () => {
 const testWin = () => {
   const boxesNodes = document.querySelectorAll(`h2`);
   const boxesArray = [...boxesNodes];
-  for (let i = 0; i < 8; i++) {
-    const currCombo = winBoxCombos[i];
-    winBoxCombos.push(currCombo.slice().reverse());
-  }
+  const winBoxes = [`box1`, `box2`, `box3`, `box4`, `box7`]
   const xArray = boxesArray.filter((h) => h.innerText === `X`);
-  console.log(winBoxCombos)
+  const oArray = boxesArray.filter((h) => h.innerText === `O`);
 }
 
 const Board = () => {
